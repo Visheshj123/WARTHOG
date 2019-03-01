@@ -56,8 +56,8 @@ public class WartHogMethods {
 	public int matrixMultiply(int[][] fileImage, BufferedImage img, double[][] gArray, double[][] DirArray){
 		 
    	 int pixVal;
-   	 double [][]HorizontalgVal = new double [img.getHeight()-1][img.getWidth()-1];
-   	 double [][]VerticalgVal = new double [img.getHeight()-1][img.getWidth()-1];
+   	 double [][]HorizontalgVal = new double [img.getHeight()][img.getWidth()];
+   	 double [][]VerticalgVal = new double [img.getHeight()][img.getWidth()];
    	// double [][] gArray = new double [img.getHeight()][img.getWidth()];
    	 //double[][] DirArray = new double[img.getHeight()][img.getWidth()];
    	 //actual multiplication logic
@@ -240,15 +240,28 @@ public class WartHogMethods {
 		
 		
 	}
-	public static String printStars(Integer NumStars){
+	*/
+	public static void printStars(HashMap<Integer, Integer> HistoMap){
 		StringBuilder builder = new StringBuilder();
-		for (int j=0; j< NumStars; j++){
-			builder.append('*');
+		int n=0;
+		System.out.println("Value of 20 is: " + (HistoMap.get(20)));
+		for (int i=0; i<9; i++){
+			//int n=0;
+			int NumStar = HistoMap.get(n);
+			builder = new StringBuilder();
+			//n+=20;
+			System.out.print( n + ": ");
+			n+=20;
+			for (int j=0; j< NumStar; j++){
+				builder.append('*');
+			}
+		
+			System.out.println(builder.toString());
 		}
 		
-		return builder.toString();
+		
 	}
-*/
+
 
 	
 	
