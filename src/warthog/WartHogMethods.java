@@ -1,17 +1,29 @@
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.image.BufferedImage;
+import java.awt.geom.*;
 
 
 
 
 public class WartHogMethods {
+    public double x1, y1, x2, y2;
+    WartHogMethods(){
+        this.x1 = 0.0;
+        this.y1 = 0.0;
+        this.x2 = 20.0;
+        this.y2 = 20.0;
+    }
 
 
 
+
+/*
     //calculates intensity values, input is image and coordinates
     public BufferedImage getPixelData(BufferedImage img, int[][] pixelData) {
         for (int y=0; y<img.getHeight(); y++){
@@ -212,7 +224,7 @@ public class WartHogMethods {
         return HistoMap;
     }
 
-    /*	public void resetHashMap(HashMap <Integer, Integer> HistoMap){
+    	public void resetHashMap(HashMap <Integer, Integer> HistoMap){
             HistoMap.clear();
             HistoMap.put(0,0);
             HistoMap.put(20,0);
@@ -238,30 +250,52 @@ public class WartHogMethods {
 
 
         }
-        */
-    public static void printStars(HashMap<Integer, Integer> HistoMap){
+
+    public void printStars(HashMap<Integer, Integer> HistoMap){
         StringBuilder builder = new StringBuilder();
         int n=0;
         System.out.println("Value of 20 is: " + (HistoMap.get(20)));
-        for (int i=0; i<9; i++){
+        for (int i=0; i<9; i++) {
             //int n=0;
-            int NumStar = HistoMap.get(n);
+            int NumStar = HistoMap.get(n); //amount in each bin
             builder = new StringBuilder();
             //n+=20;
-            System.out.print( n + ": ");
-            n+=20;
-            for (int j=0; j< NumStar; j++){
+
+            System.out.print(n + ": ");
+            n += 20;
+            //should be only drawing one line per bin, does NOT account for value of each bin
+            //implying a radius of 3
+            this.x1 = 0.0;
+            this.y1 = 0.0;
+            this.x2 = 0 + 3*(Math.cos(Math.toRadians(n)));
+            this.y2 = 0 + 3*(Math.sin(Math.toRadians(n)));
+            for (int j = 0; j < NumStar; j++) {
                 builder.append('*');
+
+                //paint(n);
             }
 
             System.out.println(builder.toString());
         }
 
+    }
+
+    public void paint (Graphics g, double angle){
+        Graphics2D g2 = (Graphics2D) g;
+        //assumes center is 0,0 and radius is 3
+        double x1 = 3.0;
+        double y1 = 0.0;
+        double x2 = 0 + 3*(Math.cos(Math.toRadians(angle)));
+        double y2 = 0 + 3*(Math.sin(Math.toRadians(angle)));
+        begin(g2, x1, y1, x2, y2);
 
     }
 
+    public void begin(Graphics2D g2, double x1, double y1, double x2, double y2){
+        g2.draw(new Line2D.Double(x1,y1,x2,y2));
+    }
 
-
+*/
 
 
 }
