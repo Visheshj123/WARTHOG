@@ -1,18 +1,40 @@
+
+
 import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 
 
 public class Gradient {
+    //used by buttons to get next histogram or next bin value
+    int n = 0;
+    int hashnum = 0;
+    ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
 
     public static final String IMG = "/Users/visheshj/Desktop/rsz_hufflepuff.jpg";
 
     public static void main(String[] args){
 
-        WartHogMethods wartfunctions = new WartHogMethods();
+        Gradient gradient = new Gradient();
+
+       WartHogMethods wartfunctions = new WartHogMethods();
+
         BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
         File f = null;
         try {
@@ -36,261 +58,21 @@ public class Gradient {
             //calculates gradient and magnitude array, normalizes angles to (0,180)
             wartfunctions.matrixMultiply(pixelData, img, gArray, DirArray);
 
-
-			/*HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>();
-
-			HistoMap.put(0,0);
-			HistoMap.put(20,0);
-			HistoMap.put(40,0);
-			HistoMap.put(60,0);
-			HistoMap.put(80,0);
-			HistoMap.put(100,0);
-			HistoMap.put(120,0);
-			HistoMap.put(140,0);
-			HistoMap.put(160,0);
-
-			HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, 39, 28, HistoMap);
-			System.out.println("The value at 60 is: " + HistoMap.get(60));
-			System.out.println("The value at 80 is: " + HistoMap.get(80));
-
-			*/
-
             HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>();
-            int count = 1;
+            gradient.Histolist = wartfunctions.createHistoList(HistoMap, gArray, DirArray);
 
-            ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
 
-            for (int y =0; y< 16; y+=8){
-                for (int x=8; x< 16; x+=8){
-                    //creates new instance of HashMap after every iteration
 
-                    HistoMap = new HashMap<Integer, Integer>();
-                    HistoMap.put(0,0);
-                    HistoMap.put(20,0);
-                    HistoMap.put(40,0);
-                    HistoMap.put(60,0);
-                    HistoMap.put(80,0);
-                    HistoMap.put(100,0);
-                    HistoMap.put(120,0);
-                    HistoMap.put(140,0);
-                    HistoMap.put(160,0);
+            //sending one 8x8 block to be displayed as histogram
+           // wartfunctions.printStars(gradient.Histolist.get(0));
 
-                    //first 8-column
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x, HistoMap);
-                    System.out.println("Processing Data Point: " + x + "," + (y+7));
-
-                    //second column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x+1, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+1, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+1, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+1, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+1) + "," + (y+7));
-
-                    //third column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+2, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+2) + "," + (y+7));
-
-                    //fourth column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, (x+3), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+3, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+3) + "," + (y+7));
-
-                    //fifth column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+4, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, (x+4), HistoMap);
-                    System.out.println("Processing Data Point: " + (x+4) + "," + (y+7));
-
-                    //sixth column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+5, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
-
-                    //seventh column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+6, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+6) + "," + (y+7));
-
-                    //eighth column
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + y);
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+1, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+1));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+2, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+2));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+3, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+3));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+4, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+4));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+5, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+5));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+6, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+6));
-
-                    HistoMap = wartfunctions.convertToHashmap(gArray, DirArray, y+7, x+7, HistoMap);
-                    System.out.println("Processing Data Point: " + (x+7) + "," + (y+7));
-
-                    Histolist.add(HistoMap);
-                    System.out.print("Added: " + count + "instance of HistoMap to Histolist" + "at data point");
-                    count++;
-
-                }
+            //prints out all histograms in arraylist
+            for(int i=0; i<gradient.Histolist.size(); i++){
+                //System.out.print(Histolist.get(i).values());
+                wartfunctions.printStars(gradient.Histolist.get(i));
             }
-            //wartfunctions.printStars(Histolist.get(0));
 
-            //System.out.print(Histolist.get(0).values());
+           // System.out.print(Histolist.get(0).values());
 
 
 
@@ -298,7 +80,68 @@ public class Gradient {
             e.printStackTrace();
         }
 
+//imported Jframe
+/*
+        JFrame testFrame = new JFrame();
+        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        final LinesComponent comp = new LinesComponent();
+        comp.setPreferredSize(new Dimension(320, 200));
+        testFrame.getContentPane().add(comp, BorderLayout.CENTER);
+        JPanel buttonsPanel = new JPanel();
+        JButton newLineButton = new JButton("New Line");
+        JButton clearButton = new JButton("Clear");
+        JButton NextButton = new JButton("Next Histogram");
+        buttonsPanel.add(newLineButton);
+        buttonsPanel.add(clearButton);
+        buttonsPanel.add(NextButton);
+        testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        newLineButton.addActionListener(new ActionListener() {
+
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //run function to get next vector values from a specific histogram
+                if (gradient.n < 180) {
+                    wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n);
+
+                    double x1 = wartfunctions.x1;
+                    double y1 = wartfunctions.y1;
+                    double x2 = wartfunctions.x2;
+                    double y2 = wartfunctions.y2;
+                    Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+                    comp.addLine(x1, y1, x2, y2, randomColor);
+                    gradient.n += 20;
+                }
+                else {
+                    double x1 = 0.0;
+                    double y1 = 0.0;
+                    double x2 = 0.0;
+                    double y2 = 0.0;
+                    Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+                    comp.addLine(x1, y1, x2, y2, randomColor);
+                }
+            }
+        });
+        clearButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comp.clearLines();
+            }
+        });
+
+        NextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gradient.n = 0;
+                gradient.hashnum++;
+                //hashnum = hashnum + 1;
+            }
+        });
+        testFrame.pack();
+        testFrame.setVisible(true);
+        */
+
     }
 
 }
-
