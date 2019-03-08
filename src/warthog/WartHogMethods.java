@@ -1,6 +1,3 @@
-
-
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -260,7 +257,7 @@ public class WartHogMethods {
             this.x1 = 160.0;
             this.y1 = 100.0;
             this.x2 = 160.0 + 3 * (Math.cos(Math.toRadians(n)));
-            this.y2 = 100.0 + 3 * (Math.sin(Math.toRadians(n)));
+            this.y2 = 100.0 - 3 * (Math.sin(Math.toRadians(n)));
 
     }
 
@@ -303,8 +300,8 @@ public class WartHogMethods {
         HistoMap.put(140,0);
         HistoMap.put(160,0);
 
-        for (int y =0; y< 16; y+=8){
-            for (int x=0; x< 16; x+=8){
+        for (int y =0; y< 128; y+=8){
+            for (int x=0; x< 128; x+=8){
                 //creates new instance of HashMap after every iteration
 
                 HistoMap = new HashMap<Integer, Integer>();
@@ -540,3 +537,5 @@ public class WartHogMethods {
 
 
 }
+
+
