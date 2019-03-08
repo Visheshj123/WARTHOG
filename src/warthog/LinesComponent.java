@@ -41,7 +41,7 @@ public class LinesComponent extends JComponent{
     private final LinkedList<Line> lines = new LinkedList<Line>();
 
     public void addLine(double x1, double x2, double x3, double x4) {
-        addLine(x1, x2, x3, x4, Color.black);
+        addLine(x1, x2, x3, x4, Color.red);
     }
 
     public void addLine(double x1, double x2, double x3, double x4, Color color) {
@@ -59,6 +59,7 @@ public class LinesComponent extends JComponent{
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g2);
         for (Line line : lines) {
+            g2.setColor(Color.red);
             g2.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
             //g.drawLine(line.x1, line.y1, line.x2, line.y2);
         }
