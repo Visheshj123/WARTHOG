@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
@@ -88,12 +87,17 @@ public class Gradient {
         comp.setPreferredSize(new Dimension(320, 200));
         testFrame.getContentPane().add(comp, BorderLayout.CENTER);
         JPanel buttonsPanel = new JPanel();
+
         JButton newLineButton = new JButton("New Line");
-        JButton clearButton = new JButton("Clear");
+        JButton resetButton = new JButton("Reset");
         JButton NextButton = new JButton("Next Histogram");
+        JButton clearButton = new JButton("Clear");
+
         buttonsPanel.add(newLineButton);
         buttonsPanel.add(clearButton);
         buttonsPanel.add(NextButton);
+        buttonsPanel.add(resetButton);
+
         testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
         newLineButton.addActionListener(new ActionListener() {
 
@@ -108,8 +112,8 @@ public class Gradient {
                     double y1 = wartfunctions.y1;
                     double x2 = wartfunctions.x2;
                     double y2 = wartfunctions.y2;
-                    Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
-                    comp.addLine(x1, y1, x2, y2, randomColor);
+                    //Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+                    comp.addLine(x1, y1, x2, y2, Color.red);
                     gradient.n += 20;
                 }
                 else {
@@ -122,13 +126,22 @@ public class Gradient {
                 }
             }
         });
-        clearButton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 comp.clearLines();
                 gradient.n = 0;
                 gradient.hashnum = 0;
+            }
+        });
+
+        clearButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comp.clearLines();
+
             }
         });
 
@@ -147,5 +160,6 @@ public class Gradient {
     }
 
 }
+
 
                   
