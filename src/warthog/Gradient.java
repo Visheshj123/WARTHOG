@@ -25,6 +25,7 @@ public class Gradient {
     int n = 0;
     int hashnum = 0;
     ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
+    BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
 
     public static final String IMG = "/Users/visheshj/Desktop/rsz_hufflepuff.jpg";
 
@@ -34,28 +35,28 @@ public class Gradient {
 
        WartHogMethods wartfunctions = new WartHogMethods();
 
-        BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
+       // BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
         File f = null;
         try {
             f = new File("/Users/visheshj/Desktop/rsz_hufflepuff.jpg");
-            img = ImageIO.read(f);
+            gradient.img = ImageIO.read(f);
 
             //will store every pixels rgb value in 3 columns, this is [y-axis][x-axis]
-            int[][] pixelData = new int [img.getHeight()][img.getWidth()];
+            int[][] pixelData = new int [gradient.img.getHeight()][gradient.img.getWidth()];
             int rgb_avg;
             int counter = 0;
-            double [][] gArray = new double [img.getHeight()][img.getWidth()];
-            double[][] DirArray = new double[img.getHeight()][img.getWidth()];
+            double [][] gArray = new double [gradient.img.getHeight()][gradient.img.getWidth()];
+            double[][] DirArray = new double[gradient.img.getHeight()][gradient.img.getWidth()];
 
-            System.out.println("Height of image is " + img.getHeight());
-            System.out.println("Width of image is " + img.getWidth());
+            System.out.println("Height of image is " + gradient.img.getHeight());
+            System.out.println("Width of image is " + gradient.img.getWidth());
 
-            BufferedImage greyScale = wartfunctions.getPixelData(img, pixelData);
+            BufferedImage greyScale = wartfunctions.getPixelData(gradient.img, pixelData);
             //System.out.print("The intensity value at 28,39 is " + pixelData[39][28]);
 
 
             //calculates gradient and magnitude array, normalizes angles to (0,180)
-            wartfunctions.matrixMultiply(pixelData, img, gArray, DirArray);
+            wartfunctions.matrixMultiply(pixelData, gradient.img, gArray, DirArray);
 
             HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>();
             gradient.Histolist = wartfunctions.createHistoList(HistoMap, gArray, DirArray);
@@ -84,9 +85,10 @@ public class Gradient {
         JFrame testFrame = new JFrame();
         testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         final LinesComponent comp = new LinesComponent();
-        comp.setPreferredSize(new Dimension(320, 200));
+        comp.setPreferredSize(new Dimension(gradient.img.getWidth(), gradient.img.getHeight()));
         testFrame.getContentPane().add(comp, BorderLayout.CENTER);
         JPanel buttonsPanel = new JPanel();
+
 
         JButton newLineButton = new JButton("New Line");
         JButton resetButton = new JButton("Reset");
@@ -106,7 +108,7 @@ public class Gradient {
             public void actionPerformed(ActionEvent e) {
                 //run function to get next vector values from a specific histogram
                 if (gradient.n < 180) {
-                    wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n);
+                    wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n, gradient.img.getHeight(), gradient.img.getWidth());
 
                     double x1 = wartfunctions.x1;
                     double y1 = wartfunctions.y1;
