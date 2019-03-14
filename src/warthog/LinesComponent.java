@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.LinkedList;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -55,14 +59,26 @@ public class LinesComponent extends JComponent{
     }
 
     @Override
+    //takes in image to draw on top off, also goes through each line to draw
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g2);
-        for (Line line : lines) {
-            g2.setColor(Color.red);
-            g2.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
-            //g.drawLine(line.x1, line.y1, line.x2, line.y2);
+        try {
+
+            File f = new File("/Users/visheshj/Desktop/rsz_hufflepuff.jpg");
+            BufferedImage img = ImageIO.read(f);
+            g2.drawImage(img, 0,0, this);
+            for (Line line : lines) {
+
+                g2.setColor(Color.red);
+                g2.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
+                //g.drawLine(line.x1, line.y1, line.x2, line.y2);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
         }
+
+
     }
 
 
