@@ -251,13 +251,14 @@ public class WartHogMethods {
 
         }*/
 
-    public void drawVector(HashMap<Integer, Integer> HistoMap, int n){
+    public void drawVector(HashMap<Integer, Integer> HistoMap, int n, int height, int width){
         //implying a radius of 3
 
+            //create nested loop that takes in width and height and starts each vector at the (8,8) of each block
             this.x1 = 160.0;
             this.y1 = 100.0;
-            this.x2 = 160.0 + 3 * (Math.cos(Math.toRadians(n)));
-            this.y2 = 100.0 - 3 * (Math.sin(Math.toRadians(n)));
+            this.x2 = this.x1 + 3 * (Math.cos(Math.toRadians(n)));
+            this.y2 = this.y1 - 3 * (Math.sin(Math.toRadians(n)));
 
     }
 
@@ -300,8 +301,9 @@ public class WartHogMethods {
         HistoMap.put(140,0);
         HistoMap.put(160,0);
 
-        for (int y =0; y< 128; y+=8){
-            for (int x=0; x< 128; x+=8){
+        //16x16 block, need to find more efficent way to solve this (Think COMP ARCH email)
+        for (int y =0; y< 128; y+=16){
+            for (int x=0; x< 128; x+=16){
                 //creates new instance of HashMap after every iteration
 
                 HistoMap = new HashMap<Integer, Integer>();
@@ -340,21 +342,37 @@ public class WartHogMethods {
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x, HistoMap);
                 //System.out.println("Processing Data Point: " + x + "," + (y+7));
 
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x, HistoMap);
+
                 //second column
 
                 HistoMap = convertToHashmap(gArray, DirArray, y, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + y);
 
-                HistoMap = convertToHashmap(gArray, DirArray, y+1, x, HistoMap);
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + (y+1));
 
-                HistoMap = convertToHashmap(gArray, DirArray, y+2, x, HistoMap);
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + (y+2));
 
-                HistoMap = convertToHashmap(gArray, DirArray, y+3, x, HistoMap);
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + (y+3));
 
-                HistoMap = convertToHashmap(gArray, DirArray, y+4, x, HistoMap);
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + (y+4));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+5, x+1, HistoMap);
@@ -365,6 +383,22 @@ public class WartHogMethods {
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+1, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+1) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+1, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+1, HistoMap);
 
                 //third column
 
@@ -392,6 +426,22 @@ public class WartHogMethods {
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+2, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+2) + "," + (y+7));
 
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+2, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+2, HistoMap);
+
                 //fourth column
 
                 HistoMap = convertToHashmap(gArray, DirArray, y, (x+3), HistoMap);
@@ -417,6 +467,22 @@ public class WartHogMethods {
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+3, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+3) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+3, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+3, HistoMap);
 
                 //fifth column
 
@@ -444,6 +510,22 @@ public class WartHogMethods {
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, (x+4), HistoMap);
                 // System.out.println("Processing Data Point: " + (x+4) + "," + (y+7));
 
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, (x+4), HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, (x+4), HistoMap);
+
                 //sixth column
 
                 HistoMap = convertToHashmap(gArray, DirArray, y, x+5, HistoMap);
@@ -470,57 +552,433 @@ public class WartHogMethods {
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+5, HistoMap);
                 //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
 
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+5, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+5, HistoMap);
+
                 //seventh column
 
                 HistoMap = convertToHashmap(gArray, DirArray, y, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + y);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+1, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+1));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+2, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+2));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+3, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+3));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+4, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+4));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+5, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+5));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+6, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+6));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+6, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+6) + "," + (y+7));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+6, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+6, HistoMap);
 
                 //eighth column
 
                 HistoMap = convertToHashmap(gArray, DirArray, y, x+7, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+7) + "," + y);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+1, x+7, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+7) + "," + (y+1));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+2, x+7, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+7) + "," + (y+2));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+3, x+7, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+7) + "," + (y+3));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+4, x+7, HistoMap);
-                //System.out.println("Processing Data Point: " + (x+7) + "," + (y+4));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+5, x+7, HistoMap);
-                // System.out.println("Processing Data Point: " + (x+7) + "," + (y+5));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+6, x+7, HistoMap);
-                // System.out.println("Processing Data Point: " + (x+7) + "," + (y+6));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
 
                 HistoMap = convertToHashmap(gArray, DirArray, y+7, x+7, HistoMap);
-                // System.out.println("Processing Data Point: " + (x+7) + "," + (y+7));
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+7, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+7, HistoMap);
+
+                //ninth column
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+8, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+8, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+8, HistoMap);
+
+                //tenth column
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+9, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+9, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+9, HistoMap);
+
+                //eleventh column
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+10, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+10, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+10, HistoMap);
+
+                //twelth column
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+11, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+11, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+11, HistoMap);
+
+                //thirteenth
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+12, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+12, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+12, HistoMap);
+
+                //fourteenth
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+13, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+13, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+13, HistoMap);
+
+                //fifteenth
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+14, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+14, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+14, HistoMap);
+
+                //sixteenth
+                HistoMap = convertToHashmap(gArray, DirArray, y, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + y);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+1, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+1));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+2, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+2));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+3, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+3));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+4, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+4));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+5, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+5));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+6, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+6));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+7, x+15, HistoMap);
+                //System.out.println("Processing Data Point: " + (x+5) + "," + (y+7));
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+8, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+9, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+10, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+11, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+12, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+13, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+14, x+15, HistoMap);
+
+                HistoMap = convertToHashmap(gArray, DirArray, y+15, x+15, HistoMap);
 
                 Histolist.add(HistoMap);
                 System.out.print("Added: " + count + "instance of HistoMap to Histolist" + "at data point");
@@ -537,5 +995,4 @@ public class WartHogMethods {
 
 
 }
-
 
