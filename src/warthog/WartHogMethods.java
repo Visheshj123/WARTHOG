@@ -1,5 +1,6 @@
 
 
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -253,7 +254,7 @@ public class WartHogMethods {
 
         }*/
 
-    public void drawVector(HashMap<Integer, Integer> HistoMap, int n){
+    public float drawVector(HashMap<Integer, Integer> HistoMap, int n){
         //implying a radius of 3
 
             //create nested loop that takes in width and height and starts each vector at the (8,8) of each block
@@ -261,6 +262,7 @@ public class WartHogMethods {
             //this.y1 = 50.0;
             this.x2 = this.x1 + 3 * (Math.cos(Math.toRadians(n)));
             this.y2 = this.y1 - 3 * (Math.sin(Math.toRadians(n)));
+            return (float)HistoMap.get(n);
 
     }
 
@@ -334,4 +336,3 @@ public class WartHogMethods {
 
 
 }
-
