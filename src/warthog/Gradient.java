@@ -1,5 +1,5 @@
 
-java.io.IOException;
+import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -13,11 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import javax.swing.*;
 
 
 public class Gradient {
@@ -26,12 +22,17 @@ public class Gradient {
     int hashnum = 0;
     ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
     BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
+    int blocksize = 16;
+    double [][] gArray;
+    double [][]DirArray;
+
 
     public static final String IMG = "/Users/visheshj/Desktop/rsz_hufflepuff.jpg";
 
     public static void main(String[] args){
 
         Gradient gradient = new Gradient();
+        System.out.println(gradient.blocksize);
 
        WartHogMethods wartfunctions = new WartHogMethods();
 
@@ -46,32 +47,20 @@ public class Gradient {
             int[][] pixelData = new int [gradient.img.getHeight()][gradient.img.getWidth()];
             int rgb_avg;
             int counter = 0;
-            double [][] gArray = new double [gradient.img.getHeight()][gradient.img.getWidth()];
-            double[][] DirArray = new double[gradient.img.getHeight()][gradient.img.getWidth()];
+            gradient.gArray = new double [gradient.img.getHeight()][gradient.img.getWidth()];
+            gradient.DirArray = new double[gradient.img.getHeight()][gradient.img.getWidth()];
 
             System.out.println("Height of image is " + gradient.img.getHeight());
             System.out.println("Width of image is " + gradient.img.getWidth());
 
+
+            //creates greyscale to capture intensity values, populates pixelData array
             BufferedImage greyScale = wartfunctions.getPixelData(gradient.img, pixelData);
-            //System.out.print("The intensity value at 28,39 is " + pixelData[39][28]);
+
 
 
             //calculates gradient and magnitude array, normalizes angles to (0,180)
-            wartfunctions.matrixMultiply(pixelData, gradient.img, gArray, DirArray);
-
-            HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>();
-            gradient.Histolist = wartfunctions.createHistoList(HistoMap, gArray, DirArray);
-
-
-
-            //sending one 8x8 block to be displayed as histogram
-           // wartfunctions.printStars(gradient.Histolist.get(0));
-
-            //prints out all histograms in arraylist
-            for(int i=0; i<gradient.Histolist.size(); i++){
-                //System.out.print(Histolist.get(i).values());
-                wartfunctions.printStars(gradient.Histolist.get(i));
-            }
+            wartfunctions.matrixMultiply(pixelData, gradient.img, gradient.gArray, gradient.DirArray);
 
            // System.out.print(Histolist.get(0).values());
 
@@ -85,6 +74,13 @@ public class Gradient {
 
         JFrame ButtonFrame = new JFrame();
         JFrame ImageFrame = new JFrame();
+
+        JTextField blockSize = new JTextField();
+        blockSize.setBounds(200, 200, 50, 10);
+
+        JButton blockEnter = new JButton("Enter");
+        blockEnter.setBounds(200, 400, 50, 50);
+
 
         ButtonFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ImageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -113,6 +109,10 @@ public class Gradient {
         buttonsPanel.add(clearButton);
         buttonsPanel.add(NextButton);
         buttonsPanel.add(resetButton);
+        buttonsPanel.add(blockEnter);
+
+        ButtonFrame.add(blockSize, BorderLayout.CENTER);
+
 
         ButtonFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
         newLineButton.addActionListener(new ActionListener() {
@@ -174,11 +174,11 @@ public class Gradient {
             public void actionPerformed(ActionEvent e) {
                 gradient.n = 0;
                 gradient.hashnum++;
-                if ((wartfunctions.x1 + 16) < (gradient.img.getWidth())){ //move 16 to get to center of new block
-                    wartfunctions.x1 += 16;
+                if ((wartfunctions.x1 + gradient.blocksize) < (gradient.img.getWidth())){ //move 16 to get to center of new block
+                    wartfunctions.x1 += gradient.blocksize;
                 } else{ //if x1 cannot move anymore, then go to next row
-                    wartfunctions.x1 = 8.0; //should reset back to left-hand center
-                    wartfunctions.y1 +=16;
+                    wartfunctions.x1 = gradient.blocksize/2; //should reset back to left-hand center
+                    wartfunctions.y1 +=gradient.blocksize;
                 }
 
                 //needs to shift where histogram is printed
@@ -187,6 +187,28 @@ public class Gradient {
 
             }
         });
+
+        blockEnter.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String s1 = blockSize.getText();
+
+                gradient.blocksize = Integer.parseInt(s1);
+                System.out.println("Block size: " + gradient.blocksize);
+
+                HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>();
+                gradient.Histolist = wartfunctions.createHistoList(HistoMap, gradient.gArray, gradient.DirArray, gradient.img.getWidth(), gradient.img.getHeight(), gradient.blocksize);
+
+
+                //prints out all histograms in arraylist
+                for(int i=0; i<gradient.Histolist.size(); i++){
+                    //System.out.print(Histolist.get(i).values());
+                    wartfunctions.printStars(gradient.Histolist.get(i));
+                }
+
+
+            }
+
+        });
         ButtonFrame.pack();
         ImageFrame.pack();
         ButtonFrame.setVisible(true);
@@ -194,3 +216,5 @@ public class Gradient {
 
 
     }
+
+}
