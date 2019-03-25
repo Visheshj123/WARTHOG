@@ -1,6 +1,4 @@
 
-
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -292,7 +290,7 @@ public class WartHogMethods {
 
     }
 
-    public ArrayList<HashMap> createHistoList(HashMap<Integer, Integer> HistoMap, double [][] gArray, double [][] DirArray ){
+    public ArrayList<HashMap> createHistoList(HashMap<Integer, Integer> HistoMap, double [][] gArray, double [][] DirArray, int width, int height, int blocksize ){
         ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
         int count = 1;
         HistoMap.put(0,0);
@@ -306,8 +304,8 @@ public class WartHogMethods {
         HistoMap.put(160,0);
 
         //16x16 block, need to find more efficent way to solve this (Think COMP ARCH email)
-        for(int ii=0; ii<128; ii+=16){
-            for(int jj=0; jj<128; jj+=16){
+        for(int ii=0; ii<height; ii+=blocksize){
+            for(int jj=0; jj<width; jj+=blocksize){
                 HistoMap = new HashMap<Integer, Integer>();
                 HistoMap.put(0,0);
                 HistoMap.put(20,0);
@@ -318,8 +316,8 @@ public class WartHogMethods {
                 HistoMap.put(120,0);
                 HistoMap.put(140,0);
                 HistoMap.put(160,0);
-                for(int y =ii; y< ii+16; y++){
-                    for (int x=jj; x< jj +16; x++){
+                for(int y =ii; y< ii+blocksize; y++){
+                    for (int x=jj; x< jj +blocksize; x++){
                         HistoMap = convertToHashmap(gArray, DirArray, y, x, HistoMap);
                     }
                 }
@@ -336,3 +334,4 @@ public class WartHogMethods {
 
 
 }
+
