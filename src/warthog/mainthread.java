@@ -14,6 +14,7 @@ public class mainthread extends Thread {
         Gradient gradient = new Gradient();
 
         try {
+            System.out.println(gradient.img);
             gradient.IMG = ImageIO.read(new File(gradient.img));
 
 
