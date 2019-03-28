@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,27 +30,29 @@ public class LinesComponent extends JComponent{
         double x2;
         double y2;
         public Color color;
+        float stroke;
 
 
 
-        public Line(double x1, double y1, double x2, double y2, Color color) {
+        public Line(double x1, double y1, double x2, double y2, Color color, float stroke) {
             this.x1 = x1;
             this.y1 = y1;
             this.x2 = x2;
             this.y2 = y2;
             this.color = color;
+            this.stroke = stroke;
         }
     }
 
 
     private final LinkedList<Line> lines = new LinkedList<Line>();
 
-    public void addLine(double x1, double x2, double x3, double x4) {
-        addLine(x1, x2, x3, x4, Color.red);
+    public void addLine(double x1, double x2, double x3, double x4, float stroke) {
+        addLine(x1, x2, x3, x4, Color.red, stroke);
     }
 
-    public void addLine(double x1, double x2, double x3, double x4, Color color) {
-        lines.add(new Line(x1,x2,x3,x4, color));
+    public void addLine(double x1, double x2, double x3, double x4, Color color, float stroke) {
+        lines.add(new Line(x1,x2,x3,x4, color, stroke));
         repaint();
     }
 
@@ -71,6 +74,7 @@ public class LinesComponent extends JComponent{
             for (Line line : lines) {
 
                 g2.setColor(Color.red);
+                g2.setStroke(new BasicStroke(line.stroke));
                 g2.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
                 //g.drawLine(line.x1, line.y1, line.x2, line.y2);
             }
