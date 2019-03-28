@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -56,19 +57,21 @@ public class Gradient {
                                        @Override
                                        public void actionPerformed(ActionEvent e) {
                                            gradient.img = imgpath.getText();
+                                           mainthread m = new mainthread();
+                                           m.start();
 
                                        }
 
                                    });
 
-        if(gradient.img != null){
+        /*while(gradient.img != null){
             mainthread m = new mainthread();
             m.start();
         }
 
-        else{
-            System.out.println("You must enter a file path");
-        }
+
+            System.out.println("You must enter a file path");*/
+
 
 
         // BufferedImage img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
@@ -78,8 +81,3 @@ public class Gradient {
 
     }
 }
-
-
-
-
-                  
