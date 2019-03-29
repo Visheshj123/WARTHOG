@@ -1,4 +1,6 @@
 
+
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -57,7 +59,7 @@ public class Gradient {
                                        @Override
                                        public void actionPerformed(ActionEvent e) {
                                            gradient.img = imgpath.getText();
-                                           mainthread m = new mainthread();
+                                           mainthread m = new mainthread(gradient);
                                            m.start();
 
                                        }
@@ -81,3 +83,4 @@ public class Gradient {
 
     }
 }
+
