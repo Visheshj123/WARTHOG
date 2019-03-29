@@ -9,9 +9,14 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class mainthread extends Thread {
+    Gradient gradient = new Gradient();
+    mainthread(Gradient gradient){
+        this.gradient = gradient;
+
+    }
 
     public void run(){
-        Gradient gradient = new Gradient();
+
 
         try {
             System.out.println(gradient.img);
@@ -79,28 +84,39 @@ public class mainthread extends Thread {
                 float stroke;
                 // float stroke = 0.003F;
                 //run function to get next vector values from a specific histogram
-                if (gradient.n < 180) {
-                    stroke = (float) ((wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n)) / 1000);
+                int x = 0;
+                while(x < ((gradient.IMG.getWidth() * gradient.IMG.getHeight())/(gradient.blocksize * gradient.blocksize))) {
+                    while (gradient.n < 180) {
+                        stroke = (float) ((wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n)) / 1000);
 
-                    //determines the x1,x2,y1,y2 coordinates
-                    wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n);
+                        //determines the x1,x2,y1,y2 coordinates
+                        wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n);
 
-                    double x1 = wartfunctions.x1;
-                    double y1 = wartfunctions.y1;
-                    double x2 = wartfunctions.x2;
-                    double y2 = wartfunctions.y2;
-                    //Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
-                    //Integer stroke = gradient.Histolist.get(gradient.hashnum).get(gradient.n);
-                    imagecomp.addLine(x1, y1, x2, y2, Color.red, stroke);
-                    gradient.n += 20;
-                } else {
-                    double x1 = 0.0;
+                        double x1 = wartfunctions.x1;
+                        double y1 = wartfunctions.y1;
+                        double x2 = wartfunctions.x2;
+                        double y2 = wartfunctions.y2;
+                        //Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+                        //Integer stroke = gradient.Histolist.get(gradient.hashnum).get(gradient.n);
+                        imagecomp.addLine(x1, y1, x2, y2, Color.red, stroke);
+                        gradient.n += 20;
+                    }
+                   /* double x1 = 0.0;
                     double y1 = 0.0;
                     double x2 = 0.0;
                     double y2 = 0.0;
                     stroke = 0.0F;
                     Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
-                    imagecomp.addLine(x1, y1, x2, y2, randomColor, stroke);
+                    imagecomp.addLine(x1, y1, x2, y2, randomColor, stroke);*/
+                    gradient.n = 0;
+                    gradient.hashnum++;
+                    if ((wartfunctions.x1 + gradient.blocksize) < (gradient.IMG.getWidth())) { //move 16 to get to center of new block
+                        wartfunctions.x1 += gradient.blocksize;
+                    } else { //if x1 cannot move anymore, then go to next row
+                        wartfunctions.x1 = gradient.blocksize / 2; //should reset back to left-hand center
+                        wartfunctions.y1 += gradient.blocksize;
+                    }
+                    x++;
                 }
             }
         });
