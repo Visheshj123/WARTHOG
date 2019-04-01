@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,12 +14,16 @@ import java.awt.geom.*;
 
 
 public class WartHogMethods {
-    public double x1, y1, x2, y2;
+
+    public double x1, y1, x2, y2, x3, y3;
     WartHogMethods(){
-        this.x1 = 8.0; //x1, y1 should start at half the block size
-        this.y1 = 8.0;
+        Gradient gradient = new Gradient();
+        this.x1 = gradient.blocksize/2; //x1, y1 should start at half the block size
+        this.y1 = gradient.blocksize/2;
         this.x2 = 0.0;
         this.y2 = 0.0;
+        this.x3 = 0.0;
+        this.y3 = 0.0;
     }
 
 
@@ -259,6 +265,9 @@ public class WartHogMethods {
             //this.y1 = 50.0;
             this.x2 = this.x1 + 3 * (Math.cos(Math.toRadians(n)));
             this.y2 = this.y1 - 3 * (Math.sin(Math.toRadians(n)));
+            //TEST THIS
+            this.x3 = this.x1 - 3 * (Math.cos(Math.toRadians(n)));
+            this.y3 = this.y1 + 3 * (Math.sin(Math.toRadians(n)));
             return (float)HistoMap.get(n);
 
     }
@@ -328,3 +337,8 @@ public class WartHogMethods {
     }
 
 
+
+
+
+
+}
