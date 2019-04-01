@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class Gradient {
     int hashnum = 0;
     ArrayList<HashMap> Histolist = new ArrayList<HashMap>();
     String img = null; //allows import of image with each pixel having coordinate point, starting with (0,0) at top left
-    int blocksize = 16;
+    int blocksize = 0;
     double [][] gArray;
     double [][]DirArray;
     BufferedImage IMG;
@@ -34,7 +35,7 @@ public class Gradient {
         Gradient gradient = new Gradient();
         System.out.println(gradient.blocksize);
 
-        WartHogMethods wartfunctions = new WartHogMethods();
+
 
 
         JFrame Pathframe = new JFrame();
@@ -81,5 +82,4 @@ public class Gradient {
 
     }
 }
-
 
