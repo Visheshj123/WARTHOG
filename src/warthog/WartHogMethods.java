@@ -91,6 +91,8 @@ public class WartHogMethods {
 
             }
         }
+
+
         // System.out.print("the value at (28,39) is: " +DirArray[39][28]);
         return 0;
     }
@@ -342,3 +344,4 @@ public class WartHogMethods {
 
 
 }
+
