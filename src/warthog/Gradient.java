@@ -39,16 +39,21 @@ public class Gradient {
 
 
         JFrame Pathframe = new JFrame();
-        Pathframe.pack();
+        //Pathframe.pack();
         JTextField imgpath = new JTextField();
         imgpath.setPreferredSize( new Dimension( 200, 24 ));
         JButton imgEnter = new JButton("Enter");
+        JLabel label = new JLabel("Enter Image Path, Image size must be power of 2");
+        label.setBounds(0,0,100,30);
 
         Pathframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel pathPanel = new JPanel();
-        pathPanel.add(imgEnter);
+        pathPanel.add(label);
         pathPanel.add(imgpath);
+        pathPanel.add(imgEnter);
+
+        Pathframe.getContentPane().setSize(800,400);
         Pathframe.getContentPane().add(pathPanel);
 
         Pathframe.setVisible(true);
