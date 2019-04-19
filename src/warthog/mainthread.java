@@ -47,8 +47,8 @@ public class mainthread extends Thread {
         ImageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
-        final LinesComponent comp = new LinesComponent();
-        final LinesComponent imagecomp = new LinesComponent();
+        final LinesComponent comp = new LinesComponent(gradient);
+        final LinesComponent imagecomp = new LinesComponent(gradient);
 
         comp.setPreferredSize(new Dimension(gradient.IMG.getWidth(), gradient.IMG.getHeight()));
         imagecomp.setPreferredSize(new Dimension(gradient.IMG.getWidth(), gradient.IMG.getHeight()));
@@ -61,12 +61,15 @@ public class mainthread extends Thread {
         JPanel imagePanel = new JPanel();
 
 
-        JButton newLineButton = new JButton("New Line");
+        JButton VectorButton = new JButton("Create Vectors");
         JButton resetButton = new JButton("Reset");
         JButton NextButton = new JButton("Next Histogram");
         JButton clearButton = new JButton("Clear");
 
-        buttonsPanel.add(newLineButton);
+        JLabel label1 = new JLabel("Enter Block Size, must be power of 2");
+
+        buttonsPanel.add(label1);
+        buttonsPanel.add(VectorButton);
         buttonsPanel.add(clearButton);
         buttonsPanel.add(NextButton);
         buttonsPanel.add(resetButton);
@@ -75,8 +78,10 @@ public class mainthread extends Thread {
         ButtonFrame.add(blockSize, BorderLayout.CENTER);
 
 
+        ButtonFrame.getContentPane().setSize(800,400);
         ButtonFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
-        newLineButton.addActionListener(new ActionListener() {
+        ButtonFrame.getContentPane().add(label1, BorderLayout.NORTH);
+        VectorButton.addActionListener(new ActionListener() {
 
 
             @Override
