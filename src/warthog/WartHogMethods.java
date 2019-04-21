@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -72,6 +73,7 @@ public class WartHogMethods {
     public int matrixMultiply(int[][] fileImage, BufferedImage img, double[][] gArray, double[][] DirArray){
 
         int pixVal;
+        int testarray[][] = new int[img.getHeight()][img.getWidth()];
         double [][]HorizontalgVal = new double [img.getHeight()][img.getWidth()];
         double [][]VerticalgVal = new double [img.getHeight()][img.getWidth()];
         // double [][] gArray = new double [img.getHeight()][img.getWidth()];
@@ -87,8 +89,19 @@ public class WartHogMethods {
 
                 //Magnitude Array and Direction Array
                 gArray[y][x] = Math.sqrt(Math.pow(HorizontalgVal[y][x], 2.0) + Math.pow(VerticalgVal[y][x], 2.0));
+                //DirArray[y][x] = (int)Math.toDegrees(Math.atan(VerticalgVal[y][x]/HorizontalgVal[y][x]));
                 DirArray[y][x] = (int)normalizeAngle(Math.toDegrees(Math.atan(VerticalgVal[y][x]/HorizontalgVal[y][x])));
 
+
+            }
+        }
+
+
+        //print out Dirarrays
+        for(int y=1; y<img.getHeight()-1; y++) {
+            System.out.println();
+            for (int x = 1; x < img.getWidth() - 1; x++) {
+                System.out.print(DirArray[y][x] + " ");
             }
         }
 
@@ -100,14 +113,14 @@ public class WartHogMethods {
     //converts angle range to (0,180) and returns double value into DirArray
     public double normalizeAngle(double angle){
         double newAngle = angle;
-        while(newAngle <= -180){
-            newAngle += 360;
+        if(newAngle < 0){
+            newAngle += 180;
         }
-        while(newAngle > 180){
+        if(newAngle > 180){
             newAngle -= 360;
         }
 
-        Math.abs(newAngle);
+        //Math.abs(newAngle);
         return newAngle;
     }
 
@@ -137,6 +150,10 @@ public class WartHogMethods {
         //System.out.println("The magnitude at (28,39) is " + magnitude + "direction is: " + direction + "temp is: " + temp);
 
         //if direction is <10
+        if(temp == 0){
+            HistoMap.put(0,HistoMap.get(0) + (int)magnitude);
+        }
+
         if(temp > 0 && temp < 20){ //Direction was >0 and <20
 
             lowerBucketVal= (1-((temp - 0)/20)) * magnitude;
@@ -227,6 +244,10 @@ public class WartHogMethods {
             upperBucketVal = (1-((180 - temp)/20)) * magnitude;
             HistoMap.put(160, HistoMap.get(160) + (int)lowerBucketVal);
             HistoMap.put(0, HistoMap.get(0) + (int)upperBucketVal);
+        }
+
+        if(temp == 180){
+            HistoMap.put(0, HistoMap.get(0) + (int)magnitude);
         }
 
         return HistoMap;
@@ -344,4 +365,3 @@ public class WartHogMethods {
 
 
 }
-
