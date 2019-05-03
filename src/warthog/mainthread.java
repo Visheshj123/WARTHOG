@@ -17,13 +17,9 @@ public class mainthread extends Thread {
 
     public void run(){
 
-
         try {
-            System.out.println(gradient.img);
+            //reads in image file
             gradient.IMG = ImageIO.read(new File(gradient.img));
-
-
-
 
 
         } catch (IOException s) {
@@ -31,7 +27,7 @@ public class mainthread extends Thread {
         }
 
 
-
+        //GUI to enter block size and display image
         WartHogMethods wartfunctions = new WartHogMethods();
         JFrame ButtonFrame = new JFrame();
         JFrame ImageFrame = new JFrame();
@@ -61,9 +57,9 @@ public class mainthread extends Thread {
         JPanel imagePanel = new JPanel();
 
 
-        JButton VectorButton = new JButton("Create Vectors");
+        JButton VectorButton = new JButton("Create Vectors"); //shows all vectors on the image
         JButton resetButton = new JButton("Reset");
-        JButton NextButton = new JButton("Next Histogram");
+       // JButton NextButton = new JButton("Next Histogram");
         JButton clearButton = new JButton("Clear");
 
         JLabel label1 = new JLabel("Enter Block Size, must be power of 2");
@@ -71,7 +67,7 @@ public class mainthread extends Thread {
         buttonsPanel.add(label1);
         buttonsPanel.add(VectorButton);
         buttonsPanel.add(clearButton);
-        buttonsPanel.add(NextButton);
+        //buttonsPanel.add(NextButton);
         buttonsPanel.add(resetButton);
         buttonsPanel.add(blockEnter);
 
@@ -87,8 +83,7 @@ public class mainthread extends Thread {
             @Override
             public void actionPerformed(ActionEvent e) {
                 float stroke;
-                // float stroke = 0.003F;
-                //run function to get next vector values from a specific histogram
+                //gets starting coordinate based on half the block size
                 int x = 0;
                 wartfunctions.x1 = gradient.blocksize/2;
                 wartfunctions.y1 = gradient.blocksize/2;
@@ -98,7 +93,7 @@ public class mainthread extends Thread {
                     while (gradient.n < 180) {
                         stroke = (float) ((wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n)) / 1000);
 
-                        //determines the x1,x2,y1,y2 coordinates
+                        //determines the x1,x2,y1,y2,x3,y3 coordinates
                         wartfunctions.drawVector(gradient.Histolist.get(gradient.hashnum), gradient.n);
 
                         double x1 = wartfunctions.x1;
@@ -107,24 +102,16 @@ public class mainthread extends Thread {
                         double y2 = wartfunctions.y2;
                         double x3 = wartfunctions.x3;
                         double y3 = wartfunctions.y3;
-                        //Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
-                        //Integer stroke = gradient.Histolist.get(gradient.hashnum).get(gradient.n);
                         imagecomp.addLine(x1, y1, x2, y2,x3, y3, Color.red, stroke);
-                        gradient.n += 20;
+                        gradient.n += 20; //gets next bin
                     }
-                   /* double x1 = 0.0;
-                    double y1 = 0.0;
-                    double x2 = 0.0;
-                    double y2 = 0.0;
-                    stroke = 0.0F;
-                    Color randomColor = new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
-                    imagecomp.addLine(x1, y1, x2, y2, randomColor, stroke);*/
+                    //gets next histogram and moves coordinates to output new vector
                     gradient.n = 0;
                     gradient.hashnum++;
-                    if ((wartfunctions.x1 + gradient.blocksize) < (gradient.IMG.getWidth())) { //move 16 to get to center of new block
+                    if ((wartfunctions.x1 + gradient.blocksize) < (gradient.IMG.getWidth())) {
                         wartfunctions.x1 += gradient.blocksize;
                     } else { //if x1 cannot move anymore, then go to next row
-                        wartfunctions.x1 = gradient.blocksize/2; //should reset back to left-hand center
+                        wartfunctions.x1 = gradient.blocksize/2;
                         wartfunctions.y1 += gradient.blocksize;
                     }
                     x++;
@@ -158,7 +145,7 @@ public class mainthread extends Thread {
             }
         });
 
-        NextButton.addActionListener(new ActionListener() {
+      /*  NextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gradient.n = 0;
@@ -174,7 +161,7 @@ public class mainthread extends Thread {
 
 
             }
-        });
+        });*/
 
         blockEnter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -214,10 +201,10 @@ public class mainthread extends Thread {
 
 
                 //prints out all histograms in arraylist
-                for (int i = 0; i < gradient.Histolist.size(); i++) {
+               /* for (int i = 0; i < gradient.Histolist.size(); i++) {
                     //System.out.print(Histolist.get(i).values());
                     wartfunctions.printStars(gradient.Histolist.get(i));
-                }
+                }*/
 
 
             }
