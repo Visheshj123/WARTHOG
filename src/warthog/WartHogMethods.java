@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -47,7 +45,7 @@ public class WartHogMethods {
                 };
 
                 avg = (rgb[0] + rgb[1] + rgb[2])/3; //gets us intensity values
-                //System.out.print("the value at " + x + "," + y + "is" + avg + " ");
+
                 pixelData[y][x] = avg;
 
                 argb = (avg<<16) | (avg<<8) | avg;
@@ -61,7 +59,7 @@ public class WartHogMethods {
         }
 
         try{
-            File f = new File("/Users/visheshj/Desktop/output.jpg");
+            File f = new File("/Users/visheshj/Desktop/output.jpg"); //outputs greyscale image
             ImageIO.write(img, "jpg", f);
         }catch(IOException e){
             System.out.print(e);
@@ -76,8 +74,7 @@ public class WartHogMethods {
         int testarray[][] = new int[img.getHeight()][img.getWidth()];
         double [][]HorizontalgVal = new double [img.getHeight()][img.getWidth()];
         double [][]VerticalgVal = new double [img.getHeight()][img.getWidth()];
-        // double [][] gArray = new double [img.getHeight()][img.getWidth()];
-        //double[][] DirArray = new double[img.getHeight()][img.getWidth()];
+
         //actual multiplication logic
 
         //nestedloop that ignores the edges
@@ -89,7 +86,7 @@ public class WartHogMethods {
 
                 //Magnitude Array and Direction Array
                 gArray[y][x] = Math.sqrt(Math.pow(HorizontalgVal[y][x], 2.0) + Math.pow(VerticalgVal[y][x], 2.0));
-                //DirArray[y][x] = (int)Math.toDegrees(Math.atan(VerticalgVal[y][x]/HorizontalgVal[y][x]));
+
                 DirArray[y][x] = (int)normalizeAngle(Math.toDegrees(Math.atan(VerticalgVal[y][x]/HorizontalgVal[y][x])));
 
 
@@ -106,7 +103,7 @@ public class WartHogMethods {
         }
 
 
-        // System.out.print("the value at (28,39) is: " +DirArray[39][28]);
+
         return 0;
     }
 
@@ -120,17 +117,13 @@ public class WartHogMethods {
             newAngle -= 360;
         }
 
-        //Math.abs(newAngle);
+
         return newAngle;
     }
 
     public HashMap<Integer, Integer> convertToHashmap(double[][] gArray, double[][] DirArray, int y, int x, HashMap<Integer, Integer> HistoMap){
 
-        //initialize HashMap
-        //HashMap<Integer, Integer> HistoMap = new HashMap<Integer, Integer>(); //cannot use primitive int cause HashMap constraints
 
-
-        //place 8x8 cells into histogram
 
 
         //create logic for angles in-between values
@@ -147,7 +140,6 @@ public class WartHogMethods {
         magnitude = gArray[y][x];
         direction = DirArray[y][x];
         temp = Math.abs(direction);
-        //System.out.println("The magnitude at (28,39) is " + magnitude + "direction is: " + direction + "temp is: " + temp);
 
         //if direction is <10
         if(temp == 0){
@@ -334,7 +326,7 @@ public class WartHogMethods {
         HistoMap.put(140,0);
         HistoMap.put(160,0);
 
-        //16x16 block, need to find more efficent way to solve this (Think COMP ARCH email)
+        //sorts each value and places them in hashmap
         for(int ii=0; ii<height; ii+=blocksize){
             for(int jj=0; jj<width; jj+=blocksize){
                 HistoMap = new HashMap<Integer, Integer>();
@@ -358,9 +350,6 @@ public class WartHogMethods {
 
         return Histolist;
     }
-
-
-
 
 
 
